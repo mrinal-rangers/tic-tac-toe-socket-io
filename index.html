@@ -3,25 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+    <title>Tic-Tac-Toe</title>
 </head>
 <body>
-    <h1>Tic Tac Toe</h1>
-    <div>
+    <h1 id="heading">Tic Tac Toe</h1>
+    <div id="players">
         <p id="userContent"> YOU : <span id="user"></span></p>
         <p id="oppNameContent"> OPPONENT : <span id="oppName"></span></p>
     </div>
-    <br>
+    <div id="box">
     <p id ="valueCont">You are playing as <span id="value"></span> </p>
-    <br>
     <p id="whosTurn"> X's Turn </p>
-
     <div>
         <p id="enterName"> Enter Your Name : </p>
         <input type="text" placeholder="Name" id ="name" >
+        <button id="find">Search for a player</button>
     </div>
+    
+    <img src="loading.gif" id ="loading" alt="loading">
 
-    <button id="find">Search for a player</button>
+    <div id="bigCont">
+        <div id="cont">
+            <div class="row">
+                <button class="btn" id="btn1"></button>
+                <button class="btn" id="btn2"></button>
+                <button class="btn" id="btn3"></button>
+            </div>
+            <div class="row">
+                <button class="btn" id="btn1"></button>
+                <button class="btn" id="btn2"></button>
+                <button class="btn" id="btn3"></button>
+            </div>
+            <div class="row">
+                <button class="btn" id="btn1"></button>
+                <button class="btn" id="btn2"></button>
+                <button class="btn" id="btn3"></button>
+            </div>
+        </div>
 
+    </div>
+    </div>
 </body>
+<script>
+    
+</script>
+
 </html>

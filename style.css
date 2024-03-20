@@ -1,0 +1,31 @@
+body{
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+font-weight: bold;
+}
+#heading{
+    font-size: 6rem;
+    color: #1fb45a;
+    
+    -webkit-text-stroke: 2px  black;
+    text-align: center;
+}
+#players{
+    font-size: 2rem;
+    display: flex;
+    justify-content:space-between;
+    padding: 4rem;
+}
+#box{
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0%;
+}
+#loading{
+    width:10%;
+}
+.btn{
+    height: 4rem;
+    width:4rem;
+}
