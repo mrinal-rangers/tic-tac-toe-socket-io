@@ -15,10 +15,10 @@
     <div id="box">
     <p id ="valueCont">You are playing as <span id="value"></span> </p>
     <p id="whosTurn"> X's Turn </p>
-    <div>
+    <div id="nameBox">
         <p id="enterName"> Enter Your Name : </p>
         <input type="text" placeholder="Name" id ="name" >
-        <button id="find">Search for a player</button>
+        <button id="findbtn">Search for a player</button>
     </div>
     
     <img src="loading.gif" id ="loading" alt="loading">
@@ -45,8 +45,49 @@
     </div>
     </div>
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
 <script>
-    
+    document.getElementById('loading').style.display='none';
+    document.getElementById('bigCont').style.display='none';
+    document.getElementById('valueCont').style.display='none';
+    document.getElementById('whosTurn').style.display='none';
+    document.getElementById('players').style.display='none';
+    const socket =io();
+    let name ;
+    document.getElementById('findbtn').addEventListener('click',()=>{
+        name = document.getElementById('name').value;
+        console.log("clicked",name);
+        document.getElementById('user').innerHTML=name;
+        document.getElementById('loading').style.display='block';
+        if(name === null || name === '') return alert("enter name");
+        else{
+            socket.emit('find',{name});
+            document.getElementById('loading').style.display='block';
+        }
+        
+    })
+
+    socket.on('find',(e)=>{
+        let allPlayersArray = e.allPlayers;
+        console.log(allPlayersArray);
+        document.getElementById('loading').style.display='none';
+        document.getElementById('nameBox').style.display='none';
+        document.getElementById('bigCont').style.display='block';
+        document.getElementById('valueCont').style.display='block';
+        document.getElementById('whosTurn').style.display='block';
+        document.getElementById('players').style.display='inline';
+
+        let oppName ,value;
+        const foundObj = allPlayersArray.find((obj)=>{
+            return obj.p1.p1name===name || obj.p2.p2name === name;
+        })
+            
+        oppName = foundObj.p1.p1name === name ? foundObj.p2.p2name : foundObj.p1.p1name ;
+        value = foundObj.p1.p1name === name ? foundObj.p1.p1value : foundObj.p2.p2value ;
+        document.getElementById('oppName').innerHTML=oppName;
+        document.getElementById('value').innerHTML=value;
+    })
+
 </script>
 
 </html>
