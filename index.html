@@ -47,7 +47,7 @@
     document.getElementById('whosTurn').style.display='none';
     document.getElementById('players').style.display='none';
     const socket =io();
-    let name ;
+    let name , oppName  ;
     document.getElementById('findbtn').addEventListener('click',()=>{
         name = document.getElementById('name').value;
         document.getElementById('user').innerHTML=name;
@@ -69,7 +69,7 @@
         document.getElementById('whosTurn').style.display='block';
         document.getElementById('players').style.display='inline';
 
-        let oppName ,value;
+        let value;
         const foundObj = allPlayersArray.find((obj)=>{
             return obj.p1.p1name===name || obj.p2.p2name === name;
         })
@@ -110,6 +110,31 @@
             document.getElementById(p2id).style.color='green';
         }
 
+        check(name,foundObj.sum);
+
+    })
+
+    function check(sum){
+        const arr= [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
+        for(let i=0;i<9;i++){
+            const v = arr[i];
+            let value = sum%2 ===0 ? 'O' : 'X' ;
+            let flag = true;
+            for(let j=0;j<3;j++){
+                let num = arr[i][j];
+                let btn= document.getElementById(`btn${num}`);
+                if(btn.innerHTML !== value) flag = false;
+            }
+            if(flag) {
+                setTimeout(()=>{
+                    socket.emit("over",{name});
+                },500)
+            }
+        }
+    }
+
+    socket.on('over',(e)=>{
+        alert(`game over, ${e.name} WON`);
     })
 
 </script>

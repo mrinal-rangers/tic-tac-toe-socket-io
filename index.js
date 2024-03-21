@@ -51,6 +51,10 @@ io.on('connection',(socket)=>{
         io.emit('playing',{allPlayers:playArray});
     })
 
+    socket.on('over',(e)=>{
+        io.emit('over',e.name);
+    })
+
 })
 
 app.use(express.static(path.resolve("")));
