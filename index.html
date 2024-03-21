@@ -31,14 +31,14 @@
                 <button class="btn" id="btn3"></button>
             </div>
             <div class="row">
-                <button class="btn" id="btn1"></button>
-                <button class="btn" id="btn2"></button>
-                <button class="btn" id="btn3"></button>
+                <button class="btn" id="btn4"></button>
+                <button class="btn" id="btn5"></button>
+                <button class="btn" id="btn6"></button>
             </div>
             <div class="row">
-                <button class="btn" id="btn1"></button>
-                <button class="btn" id="btn2"></button>
-                <button class="btn" id="btn3"></button>
+                <button class="btn" id="btn7"></button>
+                <button class="btn" id="btn8"></button>
+                <button class="btn" id="btn9"></button>
             </div>
         </div>
 
@@ -81,11 +81,38 @@
         const foundObj = allPlayersArray.find((obj)=>{
             return obj.p1.p1name===name || obj.p2.p2name === name;
         })
-            
         oppName = foundObj.p1.p1name === name ? foundObj.p2.p2name : foundObj.p1.p1name ;
         value = foundObj.p1.p1name === name ? foundObj.p1.p1value : foundObj.p2.p2value ;
         document.getElementById('oppName').innerHTML=oppName;
         document.getElementById('value').innerHTML=value;
+    })
+
+    document.querySelectorAll('.btn').forEach((e)=>{
+        e.addEventListener('click',()=>{
+            let value= document.getElementById('value').innerText;
+            e.innerText = value;
+            socket.emit('playing',{value,id:e.id,name});
+        })
+    })
+
+    socket.on('playing',(e)=>{
+        let allPlayersArray = e.allPlayers;
+        const foundObj = allPlayersArray.find((obj)=>{
+            return obj.p1.p1name===name || obj.p2.p2name === name;
+        })
+        let p1id = foundObj.p1.p1move , p2id = foundObj.p2.p2move;
+        if(foundObj.sum %2  === 0){
+            document.getElementById('whosTurn').innerText(`O's Turn`);
+        }else {
+            document.getElementById('whosTurn').innerText(`X's Turn`);
+        }
+        if(p1id!=''){
+            document.getElementById(p1id).innerText='X';
+        }
+        if(p2id!=''){
+            document.getElementById(p2id).innerText="O";
+        }
+
     })
 
 </script>
