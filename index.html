@@ -14,7 +14,7 @@
     </div>
     <div id="box">
     <p id ="valueCont">You are playing as <span id="value"></span> </p>
-    <p id="whosTurn"> X's Turn </p>
+    <p id="whosTurn">X's Turn</p>
     <div id="nameBox">
         <p id="enterName"> Enter Your Name : </p>
         <input type="text" placeholder="Name" id ="name" >
@@ -25,21 +25,15 @@
 
     <div id="bigCont">
         <div id="cont">
-            <div class="row">
-                <button class="btn" id="btn1"></button>
-                <button class="btn" id="btn2"></button>
-                <button class="btn" id="btn3"></button>
-            </div>
-            <div class="row">
-                <button class="btn" id="btn4"></button>
-                <button class="btn" id="btn5"></button>
-                <button class="btn" id="btn6"></button>
-            </div>
-            <div class="row">
-                <button class="btn" id="btn7"></button>
-                <button class="btn" id="btn8"></button>
-                <button class="btn" id="btn9"></button>
-            </div>
+            <button id="btn1" class="btn"></button>
+            <button id="btn2" class="btn"></button>
+            <button id="btn3" class="btn"></button>
+            <button id="btn4" class="btn"></button>
+            <button id="btn5" class="btn"></button>
+            <button id="btn6" class="btn"></button>
+            <button id="btn7" class="btn"></button>
+            <button id="btn8" class="btn"></button>
+            <button id="btn9" class="btn"></button>
         </div>
 
     </div>
@@ -56,7 +50,6 @@
     let name ;
     document.getElementById('findbtn').addEventListener('click',()=>{
         name = document.getElementById('name').value;
-        console.log("clicked",name);
         document.getElementById('user').innerHTML=name;
         document.getElementById('loading').style.display='block';
         if(name === null || name === '') return alert("enter name");
@@ -69,7 +62,6 @@
 
     socket.on('find',(e)=>{
         let allPlayersArray = e.allPlayers;
-        console.log(allPlayersArray);
         document.getElementById('loading').style.display='none';
         document.getElementById('nameBox').style.display='none';
         document.getElementById('bigCont').style.display='block';
@@ -89,10 +81,11 @@
 
     document.querySelectorAll('.btn').forEach((e)=>{
         e.addEventListener('click',()=>{
-            let value= document.getElementById('value').innerText;
-            e.innerText = value;
-            socket.emit('playing',{value,id:e.id,name});
+            let value= document.getElementById('value').innerHTML;
+            let turn = document.getElementById('whosTurn').innerHTML;
+            if(turn[0]===value){socket.emit('playing',{value,id:e.id,name});}
         })
+        
     })
 
     socket.on('playing',(e)=>{
@@ -102,15 +95,19 @@
         })
         let p1id = foundObj.p1.p1move , p2id = foundObj.p2.p2move;
         if(foundObj.sum %2  === 0){
-            document.getElementById('whosTurn').innerText(`O's Turn`);
+            document.getElementById('whosTurn').innerHTML = "O's Turn";
         }else {
-            document.getElementById('whosTurn').innerText(`X's Turn`);
+            document.getElementById('whosTurn').innerHTML = "X's Turn";
         }
         if(p1id!=''){
-            document.getElementById(p1id).innerText='X';
+            document.getElementById(p1id).innerHTML='X';
+            document.getElementById(p1id).disabled=true;
+            document.getElementById(p1id).style.color='black';
         }
         if(p2id!=''){
-            document.getElementById(p2id).innerText="O";
+            document.getElementById(p2id).innerHTML="O";
+            document.getElementById(p2id).disabled=true;
+            document.getElementById(p2id).style.color='green';
         }
 
     })

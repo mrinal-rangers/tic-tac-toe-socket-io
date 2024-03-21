@@ -42,7 +42,7 @@ io.on('connection',(socket)=>{
             objToChange.p1.p1move = e.id ;
             objToChange.sum ++ ;
         }
-        if(e.value=== 'O'){
+        else if(e.value=== 'O'){
             let objToChange = playArray.find((obj)=>obj.p2.p2name === e.name);
             objToChange.p2.p2move = e.id ;
             objToChange.sum ++ ;
