@@ -9,8 +9,8 @@
 <body>
     <h1 id="heading">Tic Tac Toe</h1>
     <div id="players">
-        <p id="userContent"> YOU : <span id="user"></span></p>
-        <p id="oppNameContent"> OPPONENT : <span id="oppName"></span></p>
+        <p id="userCont">You : <span id="user"></span></p>
+        <p style="position: absolute; right: 0; top:-20px" id="oppNameCont">Opponent : <span id="oppName"></span></p>
     </div>
     <div id="box">
     <p id ="valueCont">You are playing as <span id="value"></span> </p>
@@ -118,10 +118,11 @@
         const arr= [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
         for(let i=0;i<9;i++){
             const v = arr[i];
-            let value = sum%2 ===0 ? 'O' : 'X' ;
+            let value = (sum % 2 === 0) ? 'X' : 'O';
+            console.log(value);
             let flag = true;
             for(let j=0;j<3;j++){
-                let num = arr[i][j];
+                let num = v[j];
                 let btn= document.getElementById(`btn${num}`);
                 if(btn.innerHTML !== value) flag = false;
             }

@@ -9,11 +9,8 @@ font-weight: bold;
     text-align: center;
 }
 #players{
+    display: flex; width: 95vw; position: relative;
     font-size: 2rem;
-    display: flex;
-    justify-content:space-between;
-    padding-left: 4rem;
-    padding-right: 4rem;
 }
 #box{
     font-size: 2rem;
